@@ -22,7 +22,7 @@ contract Splitwise {
 
 
         if (path.length > 0) {
-            uint32 minWeight = amount;
+            uint32 min = amount;
 
                 // find min
                 for (uint i = 1; i < path.length; i++) {
@@ -30,18 +30,18 @@ contract Splitwise {
                     address to = path[i];
                     uint32 amt = owe[from][to];
 
-                    if (amt < minWeight) {
-                    minWeight = amt;
+                    if (amt < min) {
+                    min = amt;
                     }
                 }
 
                 for (uint i = 1; i < path.length; i++) {
                     address from = path[i-1];
                     address to = path[i];
-                    owe[from][to] -= minWeight;
+                    owe[from][to] -= min;
                 }
 
-            amount -= minWeight;
+            amount -= min;
         }
 
         if (amount == 0) {
